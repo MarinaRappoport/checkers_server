@@ -1,10 +1,10 @@
-package com.checkers.Checker;
+package com.checkers.server;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class CheckerApplicationTests {
+class CheckersApplicationTests {
 
 	@Test
 	void contextLoads() {
