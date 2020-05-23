@@ -4,6 +4,9 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.persistence.*;
 
+/**
+ * Represents "Users" table in DB
+ */
 @Entity
 @Table(name="Users")
 public class User {
@@ -17,7 +20,7 @@ public class User {
 
 	@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
 	private String password;
-	private String status = "available";
+	private Boolean isAvailable = true;
 	private long score = 0;
 
 	public User(String username, String password, String name) {
@@ -61,12 +64,12 @@ public class User {
 		this.username = username;
 	}
 
-	public String getStatus() {
-		return status;
+	public Boolean getAvailable() {
+		return isAvailable;
 	}
 
-	public void setStatus(String status) {
-		this.status = status;
+	public void setAvailable(Boolean available) {
+		isAvailable = available;
 	}
 
 	public long getScore() {
