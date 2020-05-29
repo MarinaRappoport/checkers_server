@@ -96,9 +96,30 @@ public class Board {
 		}
 	}
 
+	public boolean isToBecomeKing(Piece piece, Position position){
+		if (piece.isKing()) return false;
+		return  piece.getColor() == Color.WHITE && position.getRow()==FIRST_POSITION
+				|| piece.getColor() == Color.BLACK && position.getRow() == BOARD_SIZE;
+	}
+
 	public void printBoard() {
+		System.out.println("-------------------------------");
 		for (Piece piece : pieces) {
 			System.out.println(piece);
 		}
+	}
+
+	public void setPieces(List<Piece> pieces) {
+		this.pieces = pieces;
+	}
+
+	public Board copy(){
+		Board board = new Board();
+		List<Piece> piecesCopy = new ArrayList<>();
+		for (Piece piece: pieces) {
+			piecesCopy.add(piece.copy());
+			board.setPieces(piecesCopy);
+		}
+		return board;
 	}
 }

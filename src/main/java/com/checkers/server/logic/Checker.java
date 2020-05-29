@@ -9,7 +9,7 @@ public class Checker extends Piece {
 
 	@Override
 	public List<Position> getAdjacentPositions() {
-		return position.getAdjacentPositions(color == Color.WHITE);
+		return position.getAdjacentPositions(color == Color.BLACK);
 	}
 
 	@Override
@@ -18,10 +18,12 @@ public class Checker extends Piece {
 	}
 
 	@Override
+	public Piece copy() {
+		return new Checker(color,position);
+	}
+
+	@Override
 	public String toString() {
-		return "Checker{" +
-				"color=" + color +
-				", position=" + position +
-				'}';
+		return "Checker{" + color + position + "}";
 	}
 }

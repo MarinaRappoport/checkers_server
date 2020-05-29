@@ -22,10 +22,12 @@ public class King extends Piece {
 	}
 
 	@Override
+	public Piece copy() {
+		return new King(color,position);
+	}
+
+	@Override
 	public String toString() {
-		return "King{" +
-				"color=" + color +
-				", position=" + position +
-				'}';
+		return "King{" + color + position + "}";
 	}
 }
