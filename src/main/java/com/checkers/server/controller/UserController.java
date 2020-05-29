@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.security.NoSuchAlgorithmException;
 
 /**
- * Game controller for building API
+ * GameResult controller for building API
  */
 @Controller // This means that this class is a Controller
 @RequestMapping(path="/api") // This means URL's start with /api (after Application path)

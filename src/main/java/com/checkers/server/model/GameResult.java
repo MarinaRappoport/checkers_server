@@ -3,10 +3,10 @@ package com.checkers.server.model;
 import javax.persistence.*;
 
 /**
- * Represents "Game" table in DB
+ * Represents "GameResult" table in DB
  */
 @Entity
-public class Game {
+public class GameResult {
 
 	@Id
 	@GeneratedValue(strategy= GenerationType.AUTO)
@@ -22,13 +22,13 @@ public class Game {
 
 	private long timestamp;
 
-	public Game(User white, User black) {
+	public GameResult(User white, User black) {
 		this.white = white;
 		this.black = black;
 		this.timestamp = System.currentTimeMillis();
 	}
 
-	public Game() {
+	public GameResult() {
 	}
 
 	public Integer getGameId() {
