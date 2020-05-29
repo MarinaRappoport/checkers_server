@@ -30,7 +30,7 @@ public abstract class Piece {
 	 * @param otherPiece the given piece to jump over
 	 * @return the position after jumping over the given piece
 	 */
-	public Position getAfterJumpPostion(Piece otherPiece){
+	public Position getAfterJumpPosition(Piece otherPiece){
 		return position.getJumpPosition(otherPiece.position);
 	}
 
@@ -80,4 +80,6 @@ public abstract class Piece {
 	public int hashCode() {
 		return Objects.hash(color, position);
 	}
+
+	public abstract Piece copy();
 }

@@ -9,8 +9,11 @@ public class Player {
 		this.color = color;
 	}
 
-	//returns random move
-	public Move getMove(GameState state){
-		return null;
+	public int getId() {
+		return id;
+	}
+
+	public Color getColor() {
+		return color;
 	}
 }

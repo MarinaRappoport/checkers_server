@@ -2,7 +2,7 @@ package com.checkers.server;
 
 import com.checkers.server.controller.GameRepository;
 import com.checkers.server.controller.UserRepository;
-import com.checkers.server.model.Game;
+import com.checkers.server.model.GameResult;
 import com.checkers.server.model.User;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,11 +29,11 @@ class CheckersApplicationTests {
 		userRepository.save(u2);
 		userRepository.save(u3);
 
-		Game g1 = new Game(u1,u2);
-		Game g2 = new Game(u1,u3);
-		Game g3 = new Game(u2,u1);
-		Game g4 = new Game(u3,u2);
-		Game g5 = new Game(u3,u1);
+		GameResult g1 = new GameResult(u1,u2);
+		GameResult g2 = new GameResult(u1,u3);
+		GameResult g3 = new GameResult(u2,u1);
+		GameResult g4 = new GameResult(u3,u2);
+		GameResult g5 = new GameResult(u3,u1);
 
 		gameRepository.save(g1);
 		gameRepository.save(g2);
@@ -42,7 +42,7 @@ class CheckersApplicationTests {
 		gameRepository.save(g5);
 
 
-		List<Game> games = gameRepository.findAllGamesForUser(u1);
+		List<GameResult> gameResults = gameRepository.findAllGamesForUser(u1);
 
 
 	}
