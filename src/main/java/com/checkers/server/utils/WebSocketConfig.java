@@ -34,7 +34,7 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
 
     public void registerStompEndpoints(StompEndpointRegistry stompEndpointRegistry) {
         stompEndpointRegistry
-            .addEndpoint("/gs-guide-websocket").setAllowedOrigins("*")
+            .addEndpoint("/websocket").setAllowedOrigins("*")
             .withSockJS();
     }
 
