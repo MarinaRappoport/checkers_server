@@ -21,7 +21,7 @@ public class LobbyController {
 
         messagingTemplate.convertAndSendToUser(
                 requestToStartGame.getToUser(),
-                "/queue/startGame",
+                "/queue/invite",
                 requestedToStartGame
         );
     }
