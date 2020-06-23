@@ -1,6 +1,6 @@
 package com.checkers.server.model;
 
-public class RequestToStartGame {
+public class UserDestination {
     private String toUser;
 
     public String getToUser() {
