@@ -21,6 +21,6 @@ public class JumpMove extends Move {
 
 	@Override
 	public String toString() {
-		return "Jump: " + piece + " to destination " + position;
+		return "Jump: " + piece + " to destination " + to;
 	}
 }

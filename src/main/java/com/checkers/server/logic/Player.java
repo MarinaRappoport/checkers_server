@@ -1,16 +1,16 @@
 package com.checkers.server.logic;
 
 public class Player {
-	private int id;
+	private String name;
 	private Color color;
 
-	public Player(int id, Color color) {
-		this.id = id;
+	public Player(String name, Color color) {
+		this.name = name;
 		this.color = color;
 	}
 
-	public int getId() {
-		return id;
+	public String getName() {
+		return name;
 	}
 
 	public Color getColor() {

@@ -1,37 +1,23 @@
 package com.checkers.server.logic;
 
-import java.util.Objects;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 public abstract class Move {
 	protected Piece piece;
-	protected Position position;
+	protected Position to;
 
-	public Move(Piece piece, Position position) {
+	public Move(Piece piece, Position to) {
 		this.piece = piece;
-		this.position = position;
+		this.to = to;
 	}
 
+	@JsonIgnore
 	public abstract boolean isJump();
 
-	public Piece getPiece() {
-		return piece;
+	public Position getFrom() {
+		return piece.position;
 	}
-
-	public Position getPosition() {
-		return position;
-	}
-
-	@Override
-	public boolean equals(Object o) {
-		if (this == o) return true;
-		if (o == null || getClass() != o.getClass()) return false;
-		Move move = (Move) o;
-		return Objects.equals(piece, move.piece) &&
-				Objects.equals(position, move.position);
-	}
-
-	@Override
-	public int hashCode() {
-		return Objects.hash(piece, position);
+	public Position getTo() {
+		return to;
 	}
 }

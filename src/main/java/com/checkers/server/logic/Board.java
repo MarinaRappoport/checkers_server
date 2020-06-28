@@ -3,7 +3,7 @@ package com.checkers.server.logic;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.checkers.server.logic.Constants.*;
+import static com.checkers.server.logic.GameConstants.*;
 
 public class Board {
 
@@ -49,8 +49,8 @@ public class Board {
 	}
 
 	/**
-	 * @param position position to check
-	 * @return piece in the position specified. if no piece found returns null
+	 * @param position to to check
+	 * @return piece in the to specified. if no piece found returns null
 	 */
 	public Piece getPieceAt(Position position) {
 		for (Piece piece : pieces) {
@@ -82,7 +82,7 @@ public class Board {
 	}
 
 	/**
-	 * Verify that checker is in position to become king and replace checker to king on board
+	 * Verify that checker is in to to become king and replace checker to king on board
 	 *
 	 * @param piece piece to verify
 	 */
@@ -111,6 +111,10 @@ public class Board {
 
 	public void setPieces(List<Piece> pieces) {
 		this.pieces = pieces;
+	}
+
+	public List<Piece> getPieces() {
+		return pieces;
 	}
 
 	public Board copy(){

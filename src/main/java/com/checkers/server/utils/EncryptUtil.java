@@ -4,6 +4,9 @@ import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
+/**
+ * Tool for encryption user passwords
+ */
 public class EncryptUtil {
 
 	public static String hashPassword(String password) throws NoSuchAlgorithmException {
