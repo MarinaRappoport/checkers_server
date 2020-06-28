@@ -12,6 +12,6 @@ public class SimpleMove extends Move {
 
 	@Override
 	public String toString() {
-		return "Simple: " + piece + " to destination " + position;
+		return "Simple: " + piece + " to destination " + to;
 	}
 }

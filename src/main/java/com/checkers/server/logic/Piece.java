@@ -1,5 +1,7 @@
 package com.checkers.server.logic;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.util.List;
 import java.util.Objects;
 
@@ -13,8 +15,8 @@ public abstract class Piece {
 	}
 
 	/**
-	 * @param position position to check
-	 * @return true if piece is in the given position
+	 * @param position to to check
+	 * @return true if piece is in the given to
 	 */
 	public boolean inPosition(Position position){
 		return this.position.equals(position);
@@ -24,19 +26,20 @@ public abstract class Piece {
 	 * @return an array of diagonal adjacent positions to the current piece,
 	 * taking into account the direction the piece can move and the piece's capabilities
 	 */
+	@JsonIgnore
 	public abstract List<Position> getAdjacentPositions();
 
 	/**
 	 * @param otherPiece the given piece to jump over
-	 * @return the position after jumping over the given piece
+	 * @return the to after jumping over the given piece
 	 */
 	public Position getAfterJumpPosition(Piece otherPiece){
 		return position.getJumpPosition(otherPiece.position);
 	}
 
 	/**
-	 * @param jumpDestination the given jump target position
-	 * @return  the skipped position with the given jump target position
+	 * @param jumpDestination the given jump target to
+	 * @return  the skipped to with the given jump target to
 	 */
 	public Position getJumpedOverPostion(Position jumpDestination){
 		return position.getAdjacentPosition(jumpDestination);

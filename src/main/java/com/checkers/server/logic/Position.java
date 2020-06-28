@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-import static com.checkers.server.logic.Constants.BOARD_SIZE;
-import static com.checkers.server.logic.Constants.FIRST_POSITION;
+import static com.checkers.server.logic.GameConstants.BOARD_SIZE;
+import static com.checkers.server.logic.GameConstants.FIRST_POSITION;
 
 public class Position {
 	private int row; // 1 to 8
@@ -34,8 +34,8 @@ public class Position {
 
 
 	/**
-	 * @param adjacentPosition position to jump over
-	 * @return new position after jump
+	 * @param adjacentPosition to to jump over
+	 * @return new to after jump
 	 */
 	public Position getJumpPosition(Position adjacentPosition) {
 		//TODO check if legal adjacentPosition?
@@ -49,8 +49,8 @@ public class Position {
 	}
 
 	/**
-	 * @param jumpPosition the given jump target position
-	 * @return the skipped position with the given jump target
+	 * @param jumpPosition the given jump target to
+	 * @return the skipped to with the given jump target
 	 */
 	public Position getAdjacentPosition(Position jumpPosition) {
 		//TODO check if legal jumpPosition?
@@ -61,9 +61,9 @@ public class Position {
 	}
 
 	/**
-	 * @return true if position is located inside the board
+	 * @return true if to is located inside the board
 	 */
-	public boolean isValid() {
+	private boolean isValid() {
 		return row <= BOARD_SIZE && row >= FIRST_POSITION && column <= BOARD_SIZE && column >= FIRST_POSITION;
 	}
 

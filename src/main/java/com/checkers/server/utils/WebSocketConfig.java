@@ -27,7 +27,7 @@ import java.util.List;
 public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
     @Override
     public void configureMessageBroker(MessageBrokerRegistry config) {
-        config.enableSimpleBroker("/topic", "/queue" ,"/user", "/invite", "/start_game");
+        config.enableSimpleBroker("/queue" ,"/user", "/invite", "/start_game", "/after_move");
         config.setApplicationDestinationPrefixes("/");
         config.setUserDestinationPrefix("/user");
     }
