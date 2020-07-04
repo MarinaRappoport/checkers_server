@@ -110,8 +110,10 @@ public class Game {
 		List<Move> moves = new ArrayList<>();
 		List<Piece> pieces = board.getPieces(currentPlayerColor);
 		for (Piece piece : pieces) {
+			if(piece.getColor()==currentPlayerColor)
 			//recursively find all possible jump sequences for each piece
 			findAllJumpMoveForPiece(piece, piece, moves, new JumpMove(piece, null), board);
+
 		}
 		return moves;
 	}
@@ -123,8 +125,10 @@ public class Game {
 		List<Move> moves = new ArrayList<>();
 		List<Piece> pieces = board.getPieces(currentPlayerColor);
 		for (Piece piece : pieces) {
-			for (Position position : piece.getAdjacentPositions()) {
-				if (board.getPieceAt(position) == null) moves.add(new SimpleMove(piece, position));
+			if(piece.getColor()==currentPlayerColor) {
+				for (Position position : piece.getAdjacentPositions()) {
+					if (board.getPieceAt(position) == null) moves.add(new SimpleMove(piece, position));
+				}
 			}
 		}
 		return moves;
