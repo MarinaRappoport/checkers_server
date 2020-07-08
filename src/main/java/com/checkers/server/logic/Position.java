@@ -16,6 +16,9 @@ public class Position {
 		this.column = column;
 	}
 
+	public Position() {
+	}
+
 	/**
 	 * @param isDownward - true if to look in current row + 1, false - if to look in current row - 1
 	 * @return array of nearby diagonal positions within the given line distance
