@@ -13,6 +13,9 @@ import java.util.Random;
 
 @Controller
 public class LobbyController {
+
+	private static final String WS_URL_START_GAME = "/queue/start_game";
+
 	@Autowired
 	private UserRepository userRepository;
 	@Autowired
@@ -47,8 +50,8 @@ public class LobbyController {
 		Game game = new Game(black, white);
 		GameStorage.getInstance().getGames().add(game);
 
-		messagingTemplate.convertAndSendToUser(from, "/queue/start_game", game);
-		messagingTemplate.convertAndSendToUser(to, "/queue/start_game", game);
+		messagingTemplate.convertAndSendToUser(from, WS_URL_START_GAME, game);
+		messagingTemplate.convertAndSendToUser(to, WS_URL_START_GAME, game);
 	}
 
 
@@ -81,12 +84,12 @@ public class LobbyController {
 				checkGameStatus(gameStorage, game);
 
 				//send Game status
-				messagingTemplate.convertAndSendToUser(user, "/queue/after_move", game);
-				messagingTemplate.convertAndSendToUser(opponent, "/queue/after_move", game);
+				messagingTemplate.convertAndSendToUser(user, WS_URL_START_GAME, game);
+				messagingTemplate.convertAndSendToUser(opponent, WS_URL_START_GAME, game);
 			} else
-				messagingTemplate.convertAndSendToUser(user, "/queue/after_move", new GameError("Move is not valid"));
+				messagingTemplate.convertAndSendToUser(user, WS_URL_START_GAME, new GameError("Move is not valid"));
 		} else {
-			messagingTemplate.convertAndSendToUser(user, "/queue/after_move", new GameError("Game is not found"));
+			messagingTemplate.convertAndSendToUser(user, WS_URL_START_GAME, new GameError("Game is not found"));
 		}
 	}
 
