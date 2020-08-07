@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 
 /**
- * GameResult controller for building API
+ * Game controller for API calls related to game (history, current game)
  */
 @Controller // This means that this class is a Controller
 @RequestMapping(path="/api") // This means URL's start with /api (after Application path)
@@ -21,6 +21,9 @@ public class GameController {
 	@Autowired
 	private UserRepository userRepository;
 
+	/**
+	 * Get history of user's games
+	 */
 	@GetMapping(path="/history/{userId}")
 	@ResponseStatus(value = HttpStatus.OK)
 	public @ResponseBody
@@ -29,6 +32,9 @@ public class GameController {
 		return gameRepository.findAllGamesForUser(userRepository.findById(userId));
 	}
 
+	/**
+	 * Get current user's game (return null if user is not playing now)
+	 */
 	@GetMapping(path="/game/{userName}")
 	@ResponseStatus(value = HttpStatus.OK)
 	public @ResponseBody

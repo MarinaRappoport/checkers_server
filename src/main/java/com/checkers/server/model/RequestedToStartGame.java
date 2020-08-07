@@ -1,5 +1,8 @@
 package com.checkers.server.model;
 
+/**
+ * Represents json response with game error
+ */
 public class RequestedToStartGame {
     private String fromUser;
 

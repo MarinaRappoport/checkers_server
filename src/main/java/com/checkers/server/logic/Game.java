@@ -5,7 +5,7 @@ import java.util.List;
 
 /**
  * Class represent Game state
- *
+ * <p>
  * Rules:
  * 1) black player starts
  * 2) After making a move, the turn moves to the other player.
@@ -36,37 +36,40 @@ public class Game {
 		this.currentPlayerColor = Color.BLACK; //black starts the game
 	}
 
-	public boolean move(Player player, Position from, Position to){
-		if(currentPlayerColor==player.getColor())
-			return applyMove(from,to);
-		return false;
-	}
-
-	public boolean applyMove(Position from, Position to) {
-		//if legal
-		Move move = findLegalMove(from, to);
-		if (move != null) {
-			Piece piece = board.getPieceAt(move.piece.getPosition());
-			//apply move
-			if (move.isJump()) {
-				JumpMove jumpMove = (JumpMove) move;
-				List<Position> intermediatePositions = jumpMove.getIntermediatePositions();
-				for (Position intermediatePosition : intermediatePositions) {
-					Piece jumpOverPiece = board.getPieceAt(piece.getJumpedOverPostion(intermediatePosition));
-					board.removePieceFromBoard(jumpOverPiece);
-					piece.setPosition(intermediatePosition);
+	/**
+	 * Apply move to the game
+	 * @param player player
+	 * @param from start position of the piece
+	 * @param to destination position of the piece
+	 * @return true if the move is valid, else false
+	 */
+	public boolean move(Player player, Position from, Position to) {
+		if (currentPlayerColor == player.getColor()) {
+			//if legal
+			Move move = findLegalMove(from, to);
+			if (move != null) {
+				Piece piece = board.getPieceAt(move.piece.getPosition());
+				//apply move
+				if (move.isJump()) {
+					JumpMove jumpMove = (JumpMove) move;
+					List<Position> intermediatePositions = jumpMove.getIntermediatePositions();
+					for (Position intermediatePosition : intermediatePositions) {
+						Piece jumpOverPiece = board.getPieceAt(piece.getJumpedOverPostion(intermediatePosition));
+						board.removePieceFromBoard(jumpOverPiece);
+						piece.setPosition(intermediatePosition);
+					}
+					board.verifyCrown(piece);
+					roundWithoutJumpCount = 0;
+				} else {
+					piece.setPosition(move.to);
+					board.verifyCrown(piece);
+					roundWithoutJumpCount++;
 				}
-				board.verifyCrown(piece);
-				roundWithoutJumpCount = 0;
-			} else {
-				piece.setPosition(move.to);
-				board.verifyCrown(piece);
-				roundWithoutJumpCount++;
+				this.currentPlayerColor = currentPlayerColor == Color.BLACK ? Color.WHITE : Color.BLACK;
+				checkGameStatus();
+				board.printBoard();//for debug
+				return true;
 			}
-			this.currentPlayerColor = currentPlayerColor == Color.BLACK ? Color.WHITE : Color.BLACK;
-			checkGameStatus();
-			board.printBoard();//for debug
-			return true;
 		}
 
 		//else - warning
@@ -110,9 +113,9 @@ public class Game {
 		List<Move> moves = new ArrayList<>();
 		List<Piece> pieces = board.getPieces(currentPlayerColor);
 		for (Piece piece : pieces) {
-			if(piece.getColor()==currentPlayerColor)
-			//recursively find all possible jump sequences for each piece
-			findAllJumpMoveForPiece(piece, piece, moves, new JumpMove(piece, null), board);
+			if (piece.getColor() == currentPlayerColor)
+				//recursively find all possible jump sequences for each piece
+				findAllJumpMoveForPiece(piece, piece, moves, new JumpMove(piece, null), board);
 
 		}
 		return moves;
@@ -125,7 +128,7 @@ public class Game {
 		List<Move> moves = new ArrayList<>();
 		List<Piece> pieces = board.getPieces(currentPlayerColor);
 		for (Piece piece : pieces) {
-			if(piece.getColor()==currentPlayerColor) {
+			if (piece.getColor() == currentPlayerColor) {
 				for (Position position : piece.getAdjacentPositions()) {
 					if (board.getPieceAt(position) == null) moves.add(new SimpleMove(piece, position));
 				}
@@ -166,7 +169,7 @@ public class Game {
 		}
 	}
 
-	public void checkGameStatus() {
+	private void checkGameStatus() {
 		if (board.getPiecesNumber(currentPlayerColor) == 0 || getLegalMovesCollection().size() == 0) {
 			isGameOver = true;
 			winnerColor = currentPlayerColor == Color.BLACK ? Color.WHITE : Color.BLACK;

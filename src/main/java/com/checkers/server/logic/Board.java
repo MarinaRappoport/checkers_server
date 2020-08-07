@@ -5,6 +5,9 @@ import java.util.List;
 
 import static com.checkers.server.logic.GameConstants.*;
 
+/**
+ * Represents board for checkers game
+ */
 public class Board {
 
 	private List<Piece> pieces;
@@ -96,12 +99,21 @@ public class Board {
 		}
 	}
 
+	/**
+	 * Check if the piece will become king on the given position
+	 * @param piece piece to check
+	 * @param position given position
+	 * @return true if the piece will become King, else false
+	 */
 	public boolean isToBecomeKing(Piece piece, Position position){
 		if (piece.isKing()) return false;
 		return  piece.getColor() == Color.WHITE && position.getRow()==FIRST_POSITION
 				|| piece.getColor() == Color.BLACK && position.getRow() == BOARD_SIZE;
 	}
 
+	/**
+	 * method is used for debugging
+	 */
 	public void printBoard() {
 		System.out.println("-------------------------------");
 		for (Piece piece : pieces) {
@@ -117,6 +129,9 @@ public class Board {
 		return pieces;
 	}
 
+	/**
+	 * @return copy of the board
+	 */
 	public Board copy(){
 		Board board = new Board();
 		List<Piece> piecesCopy = new ArrayList<>();

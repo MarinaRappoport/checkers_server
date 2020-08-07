@@ -1,5 +1,8 @@
 package com.checkers.server.logic;
 
+/**
+ * Represents player
+ */
 public class Player {
 	private String name;
 	private Color color;

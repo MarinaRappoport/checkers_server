@@ -3,6 +3,9 @@ package com.checkers.server.logic;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Represents jump move
+ */
 public class JumpMove extends Move {
 	private List<Position> intermediatePositions = new ArrayList<>();
 

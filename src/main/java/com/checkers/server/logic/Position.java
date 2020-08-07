@@ -7,6 +7,9 @@ import java.util.Objects;
 import static com.checkers.server.logic.GameConstants.BOARD_SIZE;
 import static com.checkers.server.logic.GameConstants.FIRST_POSITION;
 
+/**
+ * Represents position of the piece on board
+ */
 public class Position {
 	private int row; // 1 to 8
 	private int column; //1 to 8
@@ -41,7 +44,6 @@ public class Position {
 	 * @return new to after jump
 	 */
 	public Position getJumpPosition(Position adjacentPosition) {
-		//TODO check if legal adjacentPosition?
 		boolean isForward = this.row - adjacentPosition.row < 0;
 		boolean isRight = this.column - adjacentPosition.column < 0;
 		int newRow = isForward ? adjacentPosition.row + 1 : adjacentPosition.row - 1;
@@ -56,8 +58,6 @@ public class Position {
 	 * @return the skipped to with the given jump target
 	 */
 	public Position getAdjacentPosition(Position jumpPosition) {
-		//TODO check if legal jumpPosition?
-		//TODO several jumps???
 		int newRow = (this.row + jumpPosition.row) / 2;
 		int newColumn = (this.column + jumpPosition.column) / 2;
 		return new Position(newRow, newColumn);

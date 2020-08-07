@@ -11,6 +11,9 @@ import org.springframework.stereotype.Controller;
 import java.security.Principal;
 import java.util.Random;
 
+/**
+ * Controller for all lobby operation via Websocket API
+ */
 @Controller
 public class LobbyController {
 
@@ -24,8 +27,11 @@ public class LobbyController {
 	@Autowired
 	private SimpMessagingTemplate messagingTemplate;
 
+	/**
+	 * Invite user to play
+	 */
 	@MessageMapping("/invite")
-	public void startGame(Principal principal, UserDestination userDestination) {
+	public void invite(Principal principal, UserDestination userDestination) {
 		String from = principal.getName();
 		RequestedToStartGame requestedToStartGame = new RequestedToStartGame(from);
 
@@ -36,6 +42,9 @@ public class LobbyController {
 		);
 	}
 
+	/**
+	 * Accept invitation to play
+	 */
 	@MessageMapping("/accept")
 	public void accept(Principal principal, UserDestination userDestination) {
 		String from = principal.getName();
@@ -54,7 +63,9 @@ public class LobbyController {
 		messagingTemplate.convertAndSendToUser(to, WS_URL_GAME_STATUS, game);
 	}
 
-
+	/**
+	 * Make new move in the game
+	 */
 	@MessageMapping("/move")
 	public void move(Principal principal, UserMove userMove) {
 		String user = principal.getName();
@@ -92,6 +103,9 @@ public class LobbyController {
 		}
 	}
 
+	/**
+	 * Finish the game (surrender)
+	 */
 	@MessageMapping("/surrender")
 	public void surrender(Principal principal) {
 		String user = principal.getName();
@@ -120,6 +134,9 @@ public class LobbyController {
 		}
 	}
 
+	/**
+	 * private method that update the DB history and user's score in case game is over
+	 */
 	private void checkGameStatusAndUpdateHistory(Game game) {
 		if (game.isGameOver()) {
 			GameStorage.getInstance().getGames().remove(game);

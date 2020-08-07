@@ -1,5 +1,8 @@
 package com.checkers.server.logic;
 
+/**
+ * Represents simple move
+ */
 public class SimpleMove extends Move {
 	public SimpleMove(Piece piece, Position position) {
 		super(piece, position);

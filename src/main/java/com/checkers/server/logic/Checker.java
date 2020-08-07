@@ -2,6 +2,9 @@ package com.checkers.server.logic;
 
 import java.util.List;
 
+/**
+ * Represents checker
+ */
 public class Checker extends Piece {
 	public Checker(Color color, Position position) {
 		super(color, position);

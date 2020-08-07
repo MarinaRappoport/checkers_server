@@ -26,8 +26,8 @@ public class CheckersApplication {
 	}
 
 	@EventListener(ApplicationReadyEvent.class)
-	public void doSomethingAfterStartup() {
-		for (User user :userRepository.findAll()) {
+	public void initWithUsersLoggedOut() {
+		for (User user : userRepository.findAll()) {
 			user.setAvailable(false);
 			userRepository.save(user);
 		}
