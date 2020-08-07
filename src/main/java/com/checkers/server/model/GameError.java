@@ -1,7 +1,7 @@
 package com.checkers.server.model;
 
 public class GameError {
-	String error;
+	private String error;
 
 	public GameError(String error) {
 		this.error = error;

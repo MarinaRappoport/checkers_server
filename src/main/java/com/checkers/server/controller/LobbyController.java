@@ -14,7 +14,7 @@ import java.util.Random;
 @Controller
 public class LobbyController {
 
-	private static final String WS_URL_START_GAME = "/queue/start_game";
+	private static final String WS_URL_GAME_STATUS = "/queue/game_status";
 
 	@Autowired
 	private UserRepository userRepository;
@@ -50,8 +50,8 @@ public class LobbyController {
 		Game game = new Game(black, white);
 		GameStorage.getInstance().getGames().add(game);
 
-		messagingTemplate.convertAndSendToUser(from, WS_URL_START_GAME, game);
-		messagingTemplate.convertAndSendToUser(to, WS_URL_START_GAME, game);
+		messagingTemplate.convertAndSendToUser(from, WS_URL_GAME_STATUS, game);
+		messagingTemplate.convertAndSendToUser(to, WS_URL_GAME_STATUS, game);
 	}
 
 
@@ -65,8 +65,7 @@ public class LobbyController {
 		Position to = userMove.getTo();
 
 		//find Game
-		GameStorage gameStorage = GameStorage.getInstance();
-		Game game = gameStorage.findGameByPlayerName(user);
+		Game game = GameStorage.getInstance().findGameByPlayerName(user);
 		Player currentPlayer;
 		if (game != null) {
 			if (game.getBlack().getName().equals(user)) {
@@ -81,30 +80,57 @@ public class LobbyController {
 
 			if (isValidMove) {
 				//if game is over
-				checkGameStatus(gameStorage, game);
+				checkGameStatusAndUpdateHistory(game);
 
 				//send Game status
-				messagingTemplate.convertAndSendToUser(user, WS_URL_START_GAME, game);
-				messagingTemplate.convertAndSendToUser(opponent, WS_URL_START_GAME, game);
+				messagingTemplate.convertAndSendToUser(user, WS_URL_GAME_STATUS, game);
+				messagingTemplate.convertAndSendToUser(opponent, WS_URL_GAME_STATUS, game);
 			} else
-				messagingTemplate.convertAndSendToUser(user, WS_URL_START_GAME, new GameError("Move is not valid"));
+				messagingTemplate.convertAndSendToUser(user, WS_URL_GAME_STATUS, new GameError("Move is not valid"));
 		} else {
-			messagingTemplate.convertAndSendToUser(user, WS_URL_START_GAME, new GameError("Game is not found"));
+			messagingTemplate.convertAndSendToUser(user, WS_URL_GAME_STATUS, new GameError("Game is not found"));
 		}
 	}
 
-	private void checkGameStatus(GameStorage gameStorage, Game game) {
+	@MessageMapping("/surrender")
+	public void surrender(Principal principal) {
+		String user = principal.getName();
+		String opponent;
+
+		//find Game
+		Game game = GameStorage.getInstance().findGameByPlayerName(user);
+		if (game != null) {
+			if (game.getBlack().getName().equals(user)) {
+				opponent = game.getWhite().getName();
+				game.setWinnerColor(Color.WHITE);
+			} else {
+				opponent = game.getBlack().getName();
+				game.setWinnerColor(Color.BLACK);
+			}
+
+			game.setGameOver(true);
+
+			checkGameStatusAndUpdateHistory(game);
+
+			//send Game status
+			messagingTemplate.convertAndSendToUser(user, WS_URL_GAME_STATUS, game);
+			messagingTemplate.convertAndSendToUser(opponent, WS_URL_GAME_STATUS, game);
+		} else {
+			messagingTemplate.convertAndSendToUser(user, WS_URL_GAME_STATUS, new GameError("Game is not found"));
+		}
+	}
+
+	private void checkGameStatusAndUpdateHistory(Game game) {
 		if (game.isGameOver()) {
-			gameStorage.getGames().remove(game);
+			GameStorage.getInstance().getGames().remove(game);
 			User black = userRepository.findByUsername(game.getBlack().getName()).get(0);
 			User white = userRepository.findByUsername(game.getWhite().getName()).get(0);
 			GameResult gameResult = new GameResult(white, black);
 			gameResult.setWinner(game.getWinnerColor().toString());
 			gameRepository.save(gameResult);
 			//update users score
-			//if draw
 			Color winnerColor = game.getWinnerColor();
-			if (winnerColor == null) {
+			if (winnerColor == null) { //if draw
 				black.setScore(black.getScore() + GameConstants.SCORE_FOR_DRAW);
 				white.setScore(black.getScore() + GameConstants.SCORE_FOR_DRAW);
 			} else if (winnerColor == Color.BLACK)

@@ -183,6 +183,14 @@ public class Game {
 		return winnerColor;
 	}
 
+	public void setWinnerColor(Color winnerColor) {
+		this.winnerColor = winnerColor;
+	}
+
+	public void setGameOver(boolean gameOver) {
+		isGameOver = gameOver;
+	}
+
 	public Color getCurrentPlayerColor() {
 		return currentPlayerColor;
 	}
