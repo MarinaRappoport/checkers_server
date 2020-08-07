@@ -1,5 +1,6 @@
 package com.checkers.server.controller;
 
+import com.checkers.server.model.GameResult;
 import com.checkers.server.model.User;
 import com.checkers.server.utils.EncryptUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.security.NoSuchAlgorithmException;
 
 /**
- * GameResult controller for building API
+ * User Controller for API calls related to user (authentication)
  */
 @Controller // This means that this class is a Controller
 @RequestMapping(path="/api") // This means URL's start with /api (after Application path)
@@ -53,10 +54,20 @@ public class UserController {
 			User user = userRepository.findByUsername(userToVerify.getUsername()).get(0);
 			if(EncryptUtil.hashPassword(userToVerify.getPassword()).equals(user.getPassword())){
 				response.setStatus( HttpServletResponse.SC_OK  );
+				user.setAvailable(true);
+				userRepository.save(user);
 				return user;
 			}
 		}
 		response.setStatus( HttpServletResponse.SC_UNAUTHORIZED  );
 		return null;
+	}
+
+	@GetMapping(path="/logout/{userId}")
+	@ResponseStatus(value = HttpStatus.OK)
+	public void logout(@PathVariable(value="userId") int userId) {
+		User user = userRepository.findById(userId);
+		user.setAvailable(false);
+		userRepository.save(user);
 	}
 }
