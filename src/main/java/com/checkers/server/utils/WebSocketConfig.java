@@ -22,12 +22,15 @@ import org.springframework.web.socket.config.annotation.WebSocketMessageBrokerCo
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Configuration for web socket
+ */
 @Configuration
 @EnableWebSocketMessageBroker
 public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
     @Override
     public void configureMessageBroker(MessageBrokerRegistry config) {
-        config.enableSimpleBroker("/queue" ,"/user", "/invite", "/start_game", "/after_move");
+        config.enableSimpleBroker("/queue" ,"/user", "/invite", "/game_status");
         config.setApplicationDestinationPrefixes("/");
         config.setUserDestinationPrefix("/user");
     }

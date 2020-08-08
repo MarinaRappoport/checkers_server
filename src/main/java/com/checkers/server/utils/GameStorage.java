@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Singleton class to store games that currently is playing
+ * Singleton class to store games that currently are playing
  */
 public class GameStorage {
 	private static GameStorage ourInstance = new GameStorage();

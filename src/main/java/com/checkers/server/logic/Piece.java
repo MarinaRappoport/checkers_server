@@ -5,6 +5,9 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.List;
 import java.util.Objects;
 
+/**
+ * Abstract class for the piece (checker or king)
+ */
 public abstract class Piece {
 	protected Color color;
 	protected Position position;
@@ -16,7 +19,7 @@ public abstract class Piece {
 
 	/**
 	 * @param position to to check
-	 * @return true if piece is in the given to
+	 * @return true if piece is in the given position
 	 */
 	public boolean inPosition(Position position){
 		return this.position.equals(position);
@@ -84,5 +87,8 @@ public abstract class Piece {
 		return Objects.hash(color, position);
 	}
 
+	/**
+	 * @return copy of the piece
+	 */
 	public abstract Piece copy();
 }

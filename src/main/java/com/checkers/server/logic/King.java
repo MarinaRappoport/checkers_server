@@ -3,6 +3,9 @@ package com.checkers.server.logic;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Represents king
+ */
 public class King extends Piece {
 	public King(Color color, Position position) {
 		super(color, position);

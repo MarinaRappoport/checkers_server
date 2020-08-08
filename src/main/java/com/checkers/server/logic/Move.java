@@ -2,6 +2,9 @@ package com.checkers.server.logic;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+/**
+ * Abstract class for any move
+ */
 public abstract class Move {
 	protected Piece piece;
 	protected Position to;

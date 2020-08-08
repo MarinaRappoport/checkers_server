@@ -2,6 +2,9 @@ package com.checkers.server.model;
 
 import com.checkers.server.logic.Position;
 
+/**
+ * Represents json request with move
+ */
 public class UserMove {
 	private Position from;
 	private Position to;
