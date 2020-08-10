@@ -30,7 +30,7 @@ import java.util.List;
 public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
     @Override
     public void configureMessageBroker(MessageBrokerRegistry config) {
-        config.enableSimpleBroker("/queue" ,"/user", "/invite", "/game_status");
+        config.enableSimpleBroker("/queue" ,"/user", "/invite", "/game_status", "/surrender");
         config.setApplicationDestinationPrefixes("/");
         config.setUserDestinationPrefix("/user");
     }
