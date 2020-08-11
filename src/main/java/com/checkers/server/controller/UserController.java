@@ -3,6 +3,8 @@ package com.checkers.server.controller;
 import com.checkers.server.model.User;
 import com.checkers.server.utils.EncryptUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.context.event.ApplicationReadyEvent;
+import org.springframework.context.event.EventListener;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -83,5 +85,13 @@ public class UserController {
 		User user = userRepository.findById(userId);
 		user.setAvailable(false);
 		userRepository.save(user);
+	}
+
+	@EventListener(ApplicationReadyEvent.class)
+	public void initWithUsersLoggedOut() {
+		for (User user : userRepository.findAll()) {
+			user.setAvailable(false);
+			userRepository.save(user);
+		}
 	}
 }
