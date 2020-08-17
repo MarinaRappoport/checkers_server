@@ -34,15 +34,15 @@ public abstract class Piece {
 
 	/**
 	 * @param otherPiece the given piece to jump over
-	 * @return the to after jumping over the given piece
+	 * @return the position after jumping over the given piece
 	 */
 	public Position getAfterJumpPosition(Piece otherPiece){
 		return position.getJumpPosition(otherPiece.position);
 	}
 
 	/**
-	 * @param jumpDestination the given jump target to
-	 * @return  the skipped to with the given jump target to
+	 * @param jumpDestination the given jump target position
+	 * @return the skipped position with the given jump target position
 	 */
 	public Position getJumpedOverPostion(Position jumpDestination){
 		return position.getAdjacentPosition(jumpDestination);

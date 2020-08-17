@@ -8,6 +8,7 @@ import org.springframework.context.event.EventListener;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import javax.servlet.http.HttpServletResponse;
 import java.security.NoSuchAlgorithmException;
@@ -83,6 +84,9 @@ public class UserController {
 	@ResponseStatus(value = HttpStatus.OK)
 	public void logout(@PathVariable(value = "userId") int userId) {
 		User user = userRepository.findById(userId);
+		if (user == null) {
+			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found");
+		}
 		user.setAvailable(false);
 		userRepository.save(user);
 	}
