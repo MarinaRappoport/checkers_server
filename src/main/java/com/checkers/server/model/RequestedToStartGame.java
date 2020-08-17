@@ -1,7 +1,7 @@
 package com.checkers.server.model;
 
 /**
- * Represents json response with game error
+ * Represents json response with username of the player who invited to play
  */
 public class RequestedToStartGame {
     private String fromUser;
