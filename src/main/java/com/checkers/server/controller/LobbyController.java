@@ -142,11 +142,12 @@ public class LobbyController {
 			GameStorage.getInstance().getGames().remove(game);
 			User black = userRepository.findByUsername(game.getBlack().getName()).get(0);
 			User white = userRepository.findByUsername(game.getWhite().getName()).get(0);
+			Color winnerColor = game.getWinnerColor();
 			GameResult gameResult = new GameResult(white, black);
-			gameResult.setWinner(game.getWinnerColor().toString());
+			if (winnerColor != null)
+				gameResult.setWinner(game.getWinnerColor().toString());
 			gameRepository.save(gameResult);
 			//update users score
-			Color winnerColor = game.getWinnerColor();
 			if (winnerColor == null) { //if draw
 				black.setScore(black.getScore() + GameConstants.SCORE_FOR_DRAW);
 				white.setScore(black.getScore() + GameConstants.SCORE_FOR_DRAW);

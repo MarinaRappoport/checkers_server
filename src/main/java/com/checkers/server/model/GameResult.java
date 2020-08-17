@@ -18,6 +18,9 @@ public class GameResult {
 	@ManyToOne
 	private User black;
 
+	@Transient
+	private int score;
+
 	private String winner; //white, black or draw
 
 	private long timestamp;
@@ -69,5 +72,13 @@ public class GameResult {
 
 	public void setTimestamp(long timestamp) {
 		this.timestamp = timestamp;
+	}
+
+	public int getScore() {
+		return score;
+	}
+
+	public void setScore(int score) {
+		this.score = score;
 	}
 }
