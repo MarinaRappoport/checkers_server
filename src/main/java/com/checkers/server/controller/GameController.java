@@ -1,6 +1,8 @@
 package com.checkers.server.controller;
 
+import com.checkers.server.logic.Color;
 import com.checkers.server.logic.Game;
+import com.checkers.server.logic.GameConstants;
 import com.checkers.server.model.GameResult;
 import com.checkers.server.model.User;
 import com.checkers.server.utils.GameStorage;
@@ -9,6 +11,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
+
+import java.util.List;
 
 
 /**
@@ -34,7 +38,14 @@ public class GameController {
 		if (u == null) {
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found");
 		}
-		return gameRepository.findAllGamesForUser(u);
+		List<GameResult> list = gameRepository.findAllGamesForUser(u);
+		for (GameResult game: list) {
+			if(game.getWinner()==null) game.setScore(GameConstants.SCORE_FOR_DRAW);
+			else if(game.getWinner().equals(Color.BLACK.name()) && u.equals(game.getBlack())
+			|| game.getWinner().equals(Color.WHITE.name()) && u.equals(game.getWhite()))
+				game.setScore(GameConstants.SCORE_FOR_WIN);
+		}
+		return list;
 	}
 
 	/**
