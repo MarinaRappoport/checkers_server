@@ -9,7 +9,7 @@ This project is client-server Web application "Checkers game"
 ## Technologies
 Project is created with:
 * Spring boot, version: 2.3
-* React
+* React, version: 16.13
 
 ## Setup
 1. Install SQL DB and configure connection.
